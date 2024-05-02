@@ -30,6 +30,20 @@ function App() {
     setToys(updatedToy);
   } 
 
+  function addLikes(toyId) {
+    const updatedToys = toys.map((toy) => {
+      if (toy.id === toyId) {
+        return {
+          ...toy,
+          likes: toy.likes + 1
+        };
+      } else {
+        return toy;
+      }
+    });
+    setToys(updatedToys);
+  }
+
   return (
     <>
       <Header />
@@ -40,6 +54,7 @@ function App() {
       <ToyContainer 
       toys={toys}
       onDeleteToy={deleteToy}
+      onUpdateLikes={addLikes}
       />
     </>
   );

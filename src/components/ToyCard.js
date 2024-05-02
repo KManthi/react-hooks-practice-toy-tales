@@ -1,15 +1,23 @@
 import React from "react";
 import axios from "axios";
 
-function ToyCard({ toy, onDeleteToy }) {
+function ToyCard({ toy, onDeleteToy, onUpdateLikes }) {
   const { id, name, image, likes } = toy;
 
-  function handleDeleteClick() {
+  function deleteClick() {
     axios.delete(`http://localhost:3001/toys/${id}`)
     .then(() => {
       onDeleteToy(id);
     })
     .catch(error => console.error("Error deleting toy:", error))
+  }
+
+  function addLikeClick() {
+    axios.patch(`http://localhost:3001/toys/${id}`)
+    .then(()=> {
+      onUpdateLikes(id);
+    })
+
   }
 
   return (
@@ -21,8 +29,8 @@ function ToyCard({ toy, onDeleteToy }) {
         className="toy-avatar"
       />
       <p>{likes} Likes </p>
-      <button className="like-btn">Like {"<3"}</button>
-      <button className="del-btn" onClick={handleDeleteClick}>Donate to GoodWill</button>
+      <button className="like-btn" onClick={addLikeClick}>Like {"<3"}</button>
+      <button className="del-btn" onClick={deleteClick}>Donate to GoodWill</button>
     </div>
   );
 }
