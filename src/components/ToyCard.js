@@ -13,11 +13,11 @@ function ToyCard({ toy, onDeleteToy, onUpdateLikes }) {
   }
 
   function addLikeClick() {
-    axios.patch(`http://localhost:3001/toys/${id}`)
+    axios.patch(`http://localhost:3001/toys/${id}`, {likes: likes + 1})
     .then(()=> {
       onUpdateLikes(id);
     })
-
+    .catch(error => console.error("Error adding like:", error))
   }
 
   return (
